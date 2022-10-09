@@ -29,6 +29,7 @@ By default ignores all ignored and untracked files, and also refuses to work
 on trees with uncommitted changes.
 """
 
+
 # TODO:
 # - Add -z on git whatchanged/ls-files so we don't deal with filename decode/OS normalization
 # - When Python is bumped to 3.7, use text instead of universal_newlines on subprocess
@@ -62,7 +63,7 @@ on trees with uncommitted changes.
 #   `--accurate` mode for `--cc`?
 
 if __name__ != "__main__":
-    raise ImportError("{} should not be used as a module.".format(__name__))
+    raise ImportError(f"{__name__} should not be used as a module.")
 
 import subprocess, shlex
 import sys, os.path
@@ -72,7 +73,7 @@ import time
 
 
 # Update symlinks only if the OS supports not following them
-UPDATE_SYMLINKS = bool(os.utime in getattr(os, 'supports_follow_symlinks', []))
+UPDATE_SYMLINKS = os.utime in getattr(os, 'supports_follow_symlinks', [])
 STEPMISSING = 100
 
 
@@ -214,7 +215,7 @@ class Git():
         return bool(self._run('diff --no-ext-diff --quiet', output=False))
 
     def log(self, merge=False, first_parent=False, commit_time=False, pathlist=None):
-        cmd = 'whatchanged --pretty={}'.format('%ct' if commit_time else '%at')
+        cmd = f"whatchanged --pretty={'%ct' if commit_time else '%at'}"
         if merge:        cmd += ' -m'
         if first_parent: cmd += ' --first-parent'
         return self._run(cmd, pathlist)
@@ -277,9 +278,14 @@ def parselog(filelist, dirlist, stats, git, merge=False, filterlist=None):
             if args.dirs:
                 dirname = os.path.dirname(file)
                 if status[-1] in ('A', 'D') and dirname in dirlist:
-                    log.debug("%d\t%d\t-\t%s\t%s",
-                                 stats['loglines'], stats['commits'],
-                                 isodate(mtime), "{}/".format(dirname or '.'))
+                    log.debug(
+                        "%d\t%d\t-\t%s\t%s",
+                        stats['loglines'],
+                        stats['commits'],
+                        isodate(mtime),
+                        f"{dirname or '.'}/",
+                    )
+
                     dirlist.remove(dirname)
                     try:
                         touch(os.path.join(git.workdir, dirname), mtime, args.test)
@@ -288,7 +294,6 @@ def parselog(filelist, dirlist, stats, git, merge=False, filterlist=None):
                         log.error("ERROR: %s", e)
                         stats['direrrors'] += 1
 
-        # Date line
         else:
             stats['commits'] += 1
             mtime = int(line)
@@ -326,7 +331,7 @@ def main():
     dirlist  = set()
     if UPDATE_SYMLINKS and not args.skip_older_than:
         filelist = set(git.ls_files(args.pathspec))
-        dirlist  = set(os.path.dirname(_) for _ in filelist)
+        dirlist = {os.path.dirname(_) for _ in filelist}
     else:
         for path in git.ls_files(args.pathspec):
             fullpath = os.path.join(git.workdir, path)
