@@ -44,6 +44,7 @@ on:
 
     push:
         tags: [ '*' ]
+    workflow_dispatch: # temporary trigger for manual runs
 
 # #
 #   Environment Vars
@@ -56,7 +57,7 @@ env:
 # #
 #   Jobs
 # #
-    
+
 jobs:
 
     # #
@@ -451,7 +452,7 @@ jobs:
               with:
                   name: KeeWeb-${{ steps.get_tag.outputs.tag }}.mac.arm64.dmg
                   path: assets
-  
+
             - name: 'Download win32.ia32.exe artifact'
               uses: actions/download-artifact@v4
               with:
@@ -495,7 +496,7 @@ jobs:
 
             - name: 'Copy assets to dist'
               run: mkdir -p keeweb/dist/desktop && cp assets/* keeweb/dist/desktop
- 
+
             - name: 'Write secrets'
               env:
                   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
