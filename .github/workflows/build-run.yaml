@@ -44,7 +44,7 @@ on:
 
     push:
         tags: [ '*' ]
-    workflow_dispatch: # temporary trigger for manual runs
+        branches: [ '*' ] # temporary trigger for manual runs
 
 # #
 #   Environment Vars
