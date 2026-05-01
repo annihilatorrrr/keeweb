@@ -220,6 +220,10 @@ function config(options) {
                 babelHelpers: 'babel-helpers'
             }),
             new webpack.IgnorePlugin(/^(moment)$/),
+            new MiniCssExtractPlugin({
+                filename: devMode ? 'css/[name].css' : 'css/[name].[contenthash].css',
+                chunkFilename: devMode ? 'css/[id].css' : 'css/[id].[contenthash].css'
+            }),
             new CssMinimizerPlugin({
                 minimizerOptions: {
                     preset: ['default', { discardComments: { removeAll: true } }]
