@@ -221,7 +221,7 @@ function config(options) {
             }),
             new webpack.IgnorePlugin(/^(moment)$/),
             new MiniCssExtractPlugin({
-                filename: devMode ? 'css/[name].css' : 'css/[name].[contenthash].css',
+                filename: 'css/app.css',
                 chunkFilename: devMode ? 'css/[id].css' : 'css/[id].[contenthash].css'
             }),
             new CssMinimizerPlugin({
