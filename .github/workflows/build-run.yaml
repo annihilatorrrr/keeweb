@@ -165,11 +165,11 @@ jobs:
                   name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.AppImage
                   path: dist/desktop/KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.AppImage
 
-            - name: 'Upload snap artifact'
-              uses: actions/upload-artifact@v4
-              with:
-                  name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
-                  path: dist/desktop/KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
+            # - name: 'Upload snap artifact'
+            #   uses: actions/upload-artifact@v4
+            #   with:
+            #       name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
+            #       path: dist/desktop/KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
 
             - name: 'Upload deb artifact'
               uses: actions/upload-artifact@v4
@@ -415,11 +415,11 @@ jobs:
                   name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.AppImage
                   path: assets
 
-            - name: 'Download linux.snap artifact'
-              uses: actions/download-artifact@v4
-              with:
-                  name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
-                  path: assets
+            # - name: 'Download linux.snap artifact'
+            #   uses: actions/download-artifact@v4
+            #   with:
+            #       name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
+            #       path: assets
 
             - name: 'Download linux.deb artifact'
               uses: actions/download-artifact@v4
