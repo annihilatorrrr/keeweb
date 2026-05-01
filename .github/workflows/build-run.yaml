@@ -156,6 +156,8 @@ jobs:
 
             - name: 'Build in Docker'
               uses: ./.github/actions/linux-build
+              with:
+                commit-sha: ${{ github.sha }}
 
             - name: 'Upload AppImage artifact'
               uses: actions/upload-artifact@v4

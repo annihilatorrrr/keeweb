@@ -2,4 +2,4 @@
 
 cd /github/workspace
 npm ci
-grunt desktop-linux
+grunt --commit-sha=${COMMIT_SHA} desktop-linux
