@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ghcr.io/canonical/snapcraft:8_core24
 
 COPY entrypoint.sh /entrypoint.sh
 
