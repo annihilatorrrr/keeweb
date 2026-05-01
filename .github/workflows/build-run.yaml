@@ -96,7 +96,7 @@ jobs:
 
             - name: 'Grunt'
               run: |
-                  grunt
+                  NODE_OPTIONS=--openssl-legacy-provider grunt
 
             - name: 'Upload artifact'
               uses: actions/upload-artifact@v4
