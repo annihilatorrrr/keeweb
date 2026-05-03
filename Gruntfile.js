@@ -464,7 +464,7 @@ module.exports = function (grunt) {
                         },
                         rpm: {
                             // depends: linuxDependencies
-                        },
+                        }
                         // snap: {
                         //     stagePackages: linuxDependencies
                         // }
