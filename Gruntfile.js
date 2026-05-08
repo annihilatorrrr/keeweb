@@ -213,11 +213,11 @@ module.exports = function (grunt) {
                 dest: `dist/desktop/KeeWeb-${pkg.version}.linux.x86_64.rpm`,
                 nonull: true
             },
-            'electron-builder-dist-linux-snap': {
-                src: `tmp/desktop/electron-builder/KeeWeb_${pkg.version}_amd64.snap`,
-                dest: `dist/desktop/KeeWeb-${pkg.version}.linux.snap`,
-                nonull: true
-            },
+            // 'electron-builder-dist-linux-snap': {
+            //     src: `tmp/desktop/electron-builder/KeeWeb_${pkg.version}_amd64.snap`,
+            //     dest: `dist/desktop/KeeWeb-${pkg.version}.linux.snap`,
+            //     nonull: true
+            // },
             'electron-builder-dist-linux-appimage': {
                 src: `tmp/desktop/electron-builder/keeweb-${pkg.version}.AppImage`,
                 dest: `dist/desktop/KeeWeb-${pkg.version}.linux.AppImage`,
@@ -459,15 +459,15 @@ module.exports = function (grunt) {
                             mimeType: 'application/x-keepass2'
                         },
                         linux: {
-                            target: ['AppImage', 'snap', 'rpm'],
+                            target: ['AppImage', 'rpm'],
                             category: 'Utility'
                         },
                         rpm: {
                             // depends: linuxDependencies
-                        },
-                        snap: {
-                            stagePackages: linuxDependencies
                         }
+                        // snap: {
+                        //     stagePackages: linuxDependencies
+                        // }
                     }
                 }
             }

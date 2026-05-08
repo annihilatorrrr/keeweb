@@ -44,6 +44,7 @@ on:
 
     push:
         tags: [ '*' ]
+        branches: [ '*' ] # temporary trigger for manual runs
 
 # #
 #   Environment Vars
@@ -56,7 +57,7 @@ env:
 # #
 #   Jobs
 # #
-    
+
 jobs:
 
     # #
@@ -83,7 +84,6 @@ jobs:
             - name: 'Upgrade Node.js'
               uses: actions/setup-node@v4
               with:
-                  node-version: '18'
                   registry-url: 'https://registry.npmjs.org'
 
             - name: 'Install npm modules'
@@ -96,7 +96,7 @@ jobs:
 
             - name: 'Grunt'
               run: |
-                  grunt
+                  NODE_OPTIONS=--openssl-legacy-provider grunt
 
             - name: 'Upload artifact'
               uses: actions/upload-artifact@v4
@@ -156,6 +156,8 @@ jobs:
 
             - name: 'Build in Docker'
               uses: ./.github/actions/linux-build
+              with:
+                commit-sha: ${{ github.sha }}
 
             - name: 'Upload AppImage artifact'
               uses: actions/upload-artifact@v4
@@ -163,11 +165,11 @@ jobs:
                   name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.AppImage
                   path: dist/desktop/KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.AppImage
 
-            - name: 'Upload snap artifact'
-              uses: actions/upload-artifact@v4
-              with:
-                  name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
-                  path: dist/desktop/KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
+            # - name: 'Upload snap artifact'
+            #   uses: actions/upload-artifact@v4
+            #   with:
+            #       name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
+            #       path: dist/desktop/KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
 
             - name: 'Upload deb artifact'
               uses: actions/upload-artifact@v4
@@ -219,7 +221,6 @@ jobs:
             - name: 'Upgrade Node.js'
               uses: actions/setup-node@v4
               with:
-                  node-version: '18'
                   registry-url: 'https://registry.npmjs.org'
 
             - name: 'Install npm modules'
@@ -296,7 +297,6 @@ jobs:
             - name: 'Upgrade Node.js'
               uses: actions/setup-node@v4
               with:
-                  node-version: '18'
                   registry-url: 'https://registry.npmjs.org'
 
             - name: 'Install npm modules'
@@ -396,7 +396,6 @@ jobs:
             - name: 'Upgrade Node.js'
               uses: actions/setup-node@v4
               with:
-                  node-version: '18'
                   registry-url: 'https://registry.npmjs.org'
 
             - name: 'Install npm modules'
@@ -416,11 +415,11 @@ jobs:
                   name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.AppImage
                   path: assets
 
-            - name: 'Download linux.snap artifact'
-              uses: actions/download-artifact@v4
-              with:
-                  name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
-                  path: assets
+            # - name: 'Download linux.snap artifact'
+            #   uses: actions/download-artifact@v4
+            #   with:
+            #       name: KeeWeb-${{ steps.get_tag.outputs.tag }}.linux.snap
+            #       path: assets
 
             - name: 'Download linux.deb artifact'
               uses: actions/download-artifact@v4
@@ -451,7 +450,7 @@ jobs:
               with:
                   name: KeeWeb-${{ steps.get_tag.outputs.tag }}.mac.arm64.dmg
                   path: assets
-  
+
             - name: 'Download win32.ia32.exe artifact'
               uses: actions/download-artifact@v4
               with:
@@ -495,7 +494,7 @@ jobs:
 
             - name: 'Copy assets to dist'
               run: mkdir -p keeweb/dist/desktop && cp assets/* keeweb/dist/desktop
- 
+
             - name: 'Write secrets'
               env:
                   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

@@ -117,7 +117,7 @@ module.exports = function (grunt) {
         'deb:linux-x64',
         'electron-builder:linux',
         'copy:electron-builder-dist-linux-rpm',
-        'copy:electron-builder-dist-linux-snap',
+        // 'copy:electron-builder-dist-linux-snap',
         'copy:electron-builder-dist-linux-appimage'
     ]);
 
